@@ -6,12 +6,12 @@ class AuthController {
     async signUp(req, res, next) {
         try {
             const result = await authService.signUp(req.body, next);
-            return res.status(200).json({
+            res.status(200).json({
                 status: 'success',
                 data: result,
             });
         } catch (err) {
-            // throw new AppError(err.message, 500);
+            // next(new AppError(err.message, 500));
         }
     }
 }

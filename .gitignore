@@ -2,4 +2,6 @@
 /_MACOSX
 .env
 /node_modules
-.gitgitignore
+.gitignore
+package.json
+package-lock.json
