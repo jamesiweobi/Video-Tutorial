@@ -64,7 +64,7 @@ class CourseService {
         const result = {};
         const course = await this.Course.find({});
         if (course) {
-            result.message = 'Success loaded all courses';
+            result.message = 'Successfully loaded all courses';
             result.statusCode = 200;
             result.status = 'Success';
             result.course = course;
@@ -73,6 +73,43 @@ class CourseService {
         result.message = 'Failed';
         result.statusCode = 400;
         result.status = 'Failed';
+        return result;
+    }
+
+    async courseUpdate(body) {
+        const result = {};
+        const id = body.id;
+
+        const courseExists = await this.Course.findById(id);
+        if (!courseExists) {
+            result.message = 'Failed to find course';
+            result.statusCode = 400;
+            result.status = 'Failed';
+            return result;
+        }
+        // delete body.id;
+        const { error } = courseValidator({
+            title: body.title,
+            description: body.description,
+            imageUrl: body.imageUrl,
+        });
+        if (error) {
+            result.message = error.details[0].message;
+            result.statusCode = 400;
+            result.status = 'Failed';
+            return result;
+        }
+        const course = await this.Course.findByIdAndUpdate(
+            { _id: id },
+            { ...body },
+            {
+                new: true,
+            }
+        );
+        result.message = 'Succesfully Updated the course';
+        result.statusCode = 200;
+        result.status = 'Success';
+        result.course = course;
         return result;
     }
 }
