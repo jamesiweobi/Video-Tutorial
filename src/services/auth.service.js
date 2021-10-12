@@ -81,6 +81,14 @@ class AuthService {
             // next(new AppError(err.message, 400));
         }
     }
+
+    async findUser(id) {
+        const user = await this.Users.findOneById({
+            _id: id,
+        });
+        if (!user) return 'User not found!';
+        return user;
+    }
 }
 
 module.exports = new AuthService();

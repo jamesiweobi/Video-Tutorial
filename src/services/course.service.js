@@ -87,7 +87,6 @@ class CourseService {
             result.status = 'Failed';
             return result;
         }
-        // delete body.id;
         const { error } = courseValidator({
             title: body.title,
             description: body.description,

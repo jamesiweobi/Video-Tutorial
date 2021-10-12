@@ -3,6 +3,8 @@ const app = express();
 const dataBaseConnection = require('./db/db.mongoDB');
 const router = require('./routes/router');
 const morgan = require('morgan');
+const hbs = require('express-handlebars');
+const path = require('path');
 // Mongoose Connection
 dataBaseConnection();
 
@@ -10,6 +12,18 @@ dataBaseConnection();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 morgan('dev');
+
+// Views
+app.engine(
+    'hbs',
+    hbs({
+        extname: 'hbs',
+        defaultLayout: 'layout',
+        layoutsDir: __dirname + '/views/layouts',
+    })
+);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 /*
 User route = '/api/v1/users'
