@@ -38,3 +38,25 @@
     text-decoration: underline;
     box-shadow: 0 5px 10px #cccccc;
 }
+
+#successBox,
+#loadingBox,
+#errorBox {
+    text-align: center;
+}
+
+.alert-success {
+    visibility: hidden;
+    /* text-align: center; */
+}
+.alert-info {
+    visibility: hidden;
+    /* text-align: center; */
+}
+.alert-danger {
+    visibility: hidden;
+    /* text-align: center; */
+}
+.visible {
+    visibility: visible !important;
+}

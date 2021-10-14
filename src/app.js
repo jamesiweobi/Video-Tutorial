@@ -20,6 +20,41 @@ app.engine(
         extname: 'hbs',
         defaultLayout: 'layout',
         layoutsDir: __dirname + '/views/layouts',
+        helpers: {
+            loadUrl: function (aString, bString) {
+                return `/course-details?userId=${aString}&course=${bString}`;
+            },
+            homePage: function (aString) {
+                return `/course/${aString}`;
+            },
+            sharecourse: function (sString) {
+                let result = '/create-course/' + sString;
+                return result;
+            },
+            courseSrc: function (sString) {
+                return `/courses-page/` + sString;
+            },
+            logOutSrc: function (sString) {
+                return `/logout/` + sString;
+            },
+            editcourse: function (id) {
+                return `/course/${id}`;
+            },
+            deletecourse: function (id) {
+                return `deletecourse('${id}')`;
+            },
+            likecourse: function (id) {
+                return `likecourse('${id}')`;
+            },
+            editUrl: function (aString, bString) {
+                return `/edit-course?userId=${aString}&course=${bString}`;
+            },
+            ingredients: function (aString) {
+                return aString.reduce((word, index) => {
+                    word + ` ${index}`;
+                }, '');
+            },
+        },
     })
 );
 app.set('views', path.join(__dirname, 'views'));

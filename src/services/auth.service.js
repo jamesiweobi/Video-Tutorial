@@ -83,7 +83,7 @@ class AuthService {
     }
 
     async findUser(id) {
-        const user = await this.Users.findOneById({
+        const user = await this.Users.findOne({
             _id: id,
         });
         if (!user) return 'User not found!';
