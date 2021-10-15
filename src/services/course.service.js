@@ -26,7 +26,7 @@ class CourseService {
                 result.status = 'Success';
                 const savedCourse = await this.Course.create({
                     ...newCourse,
-                });
+                }).lean();
                 console.log(savedCourse);
                 await savedCourse.save();
                 result.course = savedCourse;
@@ -45,24 +45,32 @@ class CourseService {
     }
 
     async findCourse(id) {
-        const result = {};
-        const course = await this.Course.findById(id);
-        if (course) {
-            result.message = 'Success';
-            result.statusCode = 200;
-            result.status = 'Success';
-            result.course = course;
+        try {
+            const result = {};
+            const course = await this.Course.findById(id).lean();
+            if (course) {
+                result.message = 'Success, found the course';
+                result.statusCode = 200;
+                result.status = 'Success';
+                result.course = course;
+                return result;
+            }
+            result.message = 'Failed to fetch course';
+            result.statusCode = 400;
+            result.status = 'Failed';
+            return result;
+        } catch (err) {
+            let result = {};
+            result.message = 'Internal Server failure';
+            result.statusCode = 400;
+            result.status = 'Failed';
             return result;
         }
-        result.message = 'Failed';
-        result.statusCode = 400;
-        result.status = 'Failed';
-        return result;
     }
 
     async findAllCourse(id) {
         const result = {};
-        const course = await this.Course.find({});
+        const course = await this.Course.find({}).lean();
         if (course) {
             result.message = 'Successfully loaded all courses';
             result.statusCode = 200;
@@ -80,7 +88,7 @@ class CourseService {
         const result = {};
         const id = body.id;
 
-        const courseExists = await this.Course.findById(id);
+        const courseExists = await this.Course.findById(id).lean();
         if (!courseExists) {
             result.message = 'Failed to find course';
             result.statusCode = 400;
@@ -99,17 +107,27 @@ class CourseService {
             return result;
         }
         const course = await this.Course.findByIdAndUpdate(
-            { _id: id },
+            { id: id },
             { ...body },
             {
                 new: true,
             }
-        );
+        ).lean();
         result.message = 'Succesfully Updated the course';
         result.statusCode = 200;
         result.status = 'Success';
         result.course = course;
         return result;
+    }
+
+    async deleteCourse(id) {
+        const deleted = await this.Course.findOneAndDelete(id).lean();
+        return deleted;
+    }
+
+    async enrolledCourse(userId, courseId) {
+        // TODO: Fix the enrolled course function
+        // const enrolled = await
     }
 }
 

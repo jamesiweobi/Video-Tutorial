@@ -78,5 +78,20 @@ class CourseController {
             );
         }
     }
+    async deleteCourse(req, res, next) {
+        const id = req.params.id;
+        const deleleCo = await courseService.deleteCourse(id);
+        res.status(200).json({
+            status: 'success',
+            message: 'ourse successfully deleted.',
+            result: deleleCo,
+        });
+    }
+
+    async enrollCourse(req, res, next) {
+        const courseId = req.body.courseId;
+        const userId = req.body.userId;
+        const enrolled = await courseService.enrolledCourse(userId, courseId);
+    }
 }
 module.exports = new CourseController();

@@ -19,7 +19,13 @@ class ViewsController {
     async createCourse(req, res, next) {
         const id = req.params.id;
         const user = await authService.findUser(id);
-        res.render('create-course', { username: user.username, id: user.id });
+        const { doc } = user;
+        console.log(user);
+        res.render('create-course', {
+            layout: 'layout',
+            username: user.username,
+            id: user.id,
+        });
     }
 
     async courseDetails(req, res, next) {
@@ -27,10 +33,25 @@ class ViewsController {
         const courseId = req.params.course;
         const user = await authService.findUser(id);
         const course = await courseService.findCourse(courseId);
-        console.log(course.course, '<<<and>>>', user.username);
+        let isTrue = false;
+        if (id === courseId) isTrue = true;
         res.render('course-details', {
+            layout: 'layout',
+            data: user,
             course: course.course,
-            client: user,
+            isTrue: isTrue,
+        });
+    }
+
+    async editCourse(req, res, next) {
+        const id = req.params.id;
+        const courseId = req.params.course;
+        const user = await authService.findUser(id);
+        const course = await courseService.findCourse(courseId);
+        res.render('update-course', {
+            layout: 'layout',
+            data: user,
+            course: course.course,
         });
     }
 }

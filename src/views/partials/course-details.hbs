@@ -1,0 +1,107 @@
+<div class='container'>
+    <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+        <a class='navbar-brand'>Video Tutorials</a>
+
+        <ul class='navbar-nav ml-auto'>
+
+            <li class='nav-item'>
+                <a class='nav-link' href='/'>Home </a>
+            </li>
+
+            <li class='nav-item'>
+                <a class='nav-link' href=''>Welcome, {{data.username}}</a>
+            </li>
+
+            <li class='nav-item'>
+                <a class='nav-link' href={{logOutSrc data._id}}>Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class='notifications'>
+        <div id='notifications'>
+            <div
+                id='successBox'
+                class='alert successBox alert-success'
+                role='alert'
+            >
+                <p class='success-message'></p>
+            </div>
+            <div
+                id='loadingBox'
+                class='alert loadigBox alert-info'
+                role='alert'
+            ><p class='loading-message'></p></div>
+            <div id='errorBox' class='alert alertBox alert-danger' role='alert'>
+                <p class='error-message'></p>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class='container'>
+            <h1 class='my-4'>Course title :
+                {{course.title}}
+            </h1>
+
+            <div class='row'>
+
+                <div class='col-md-8'>
+                    <img
+                        class='img-fluid'
+                        src={{course.imageUrl}}
+                        alt='Express'
+                    />
+                </div>
+
+                <div class='col-md-4 text-center'>
+                    <h3 class='my-3'>Course Description</h3>
+                    <p>{{course.description}}</p>
+                    {{#if isTrue}}
+                        <a
+                            class='btn btn-danger'
+                            onclick={{{deleteCourse course._id}}}
+                            href=''
+                        >Delete</a>
+                        <a
+                            class='btn btn-warning'
+                            onclick={{{updateCourse data._id course._id}}}
+                            href=''
+                        >Edit</a>
+                    {{else}}
+                        <span class='enrolled-span'>You are already enrolled</span>
+                        <a
+                            class='btn btn-primary'
+                            onclick={{{enrollCourse data._id course._id}}}
+                            href=''
+                        >Enroll</a>
+                    {{/if}}
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class='page-footer font-small'>
+        <div class='footer-copyright text-center py-3'>© 2021
+            <a href='/'>Express Fundamentals</a>
+        </div>
+    </footer>
+
+</div>
+<script>
+    const successBox = document.getElementById('successBox'); const loadingBox =
+    document.getElementById('loadingBox'); const errorBox =
+    document.getElementById('errorBox'); const deleteCourse = async (id,
+    userId)=>{ try{ await axios.delete(`/api/v1/courses/${id}`)
+    window.location.replace(`/create-course/${userId}`); }catch(err){
+    console.log(err) } }; const enrollCourse = async (userId, courseId)=> { try{
+    await axios.put(`/api/v1/courses/enroll`, {userid: userId,
+    courseId:courseId}) alertMessage(successBox, 'success-message', 'Enrolled');
+    location.reload(); }catch(err){ console.log(err) } } const alertMessage =
+    (element, messageClass, message) => { element.classList.toggle('visible');
+    const innerMessage = document.querySelector(`.${messageClass}`);
+    innerMessage.innerHTML = message; timeout = setTimeout(() => {
+    element.classList.toggle('visible'); }, 5000); return timeout; };
+
+</script>

@@ -7,5 +7,6 @@ router.get('/login-user', viewsController.login);
 router.get('/signup-user', viewsController.signUp);
 router.get('/create-course/:id', viewsController.createCourse);
 router.get('/course-details/:id/:course', viewsController.courseDetails);
+router.get('/update-course/:id/:course', viewsController.courseDetails);
 
 module.exports = router;

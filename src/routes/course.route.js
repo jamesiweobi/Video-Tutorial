@@ -4,7 +4,9 @@ const courseController = require('../controllers/course.controller');
 
 router
     .post('/', courseController.createCourse)
-    .get('/', courseController.findAllCourse);
+    .get('/', courseController.findAllCourse)
+    .delete('/:id', courseController.deleteCourse)
+    .put('/enroll/:id', courseController.enrollCourse);
 router
     .get('/:id', courseController.findCourse)
     .patch('/:id', courseController.updateCourse);
