@@ -32,14 +32,18 @@ class ViewsController {
         const id = req.params.id;
         const courseId = req.params.course;
         const user = await authService.findUser(id);
+        console.log(user);
         const course = await courseService.findCourse(courseId);
         let isTrue = false;
+        let isEnrolled = true;
         if (id === courseId) isTrue = true;
+
         res.render('course-details', {
             layout: 'layout',
             data: user,
             course: course.course,
             isTrue: isTrue,
+            isEnrolled: isEnrolled,
         });
     }
 

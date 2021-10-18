@@ -18,25 +18,21 @@
         </ul>
     </nav>
 
-    <section class='notifications'>
-        <div id='notifications'>
-            <div
-                id='successBox'
-                class='alert successBox alert-success'
-                role='alert'
-            >
-                <p class='success-message'></p>
-            </div>
-            <div
-                id='loadingBox'
-                class='alert loadigBox alert-info'
-                role='alert'
-            ><p class='loading-message'></p></div>
-            <div id='errorBox' class='alert alertBox alert-danger' role='alert'>
-                <p class='error-message'></p>
-            </div>
+    <div id='notifications'>
+        <div
+            id='successBox'
+            class='alert successBox alert-success'
+            role='alert'
+        >
+            <p class='success-message'></p>
         </div>
-    </section>
+        <div id='loadingBox' class='alert loadigBox alert-info' role='alert'><p
+                class='loading-message'
+            ></p></div>
+        <div id='errorBox' class='alert alertBox alert-danger' role='alert'>
+            <p class='error-message'></p>
+        </div>
+    </div>
 
     <main>
         <div class='container'>
@@ -65,16 +61,19 @@
                         >Delete</a>
                         <a
                             class='btn btn-warning'
-                            onclick={{{updateCourse data._id course._id}}}
+                            onclick='{{{updateCourse data._id course._id}}}'
                             href=''
                         >Edit</a>
                     {{else}}
-                        <span class='enrolled-span'>You are already enrolled</span>
-                        <a
-                            class='btn btn-primary'
-                            onclick={{{enrollCourse data._id course._id}}}
-                            href=''
-                        >Enroll</a>
+                        {{#if isEnrolled}}
+                            <span class='enrolled-span'>You are already enrolled</span>
+                        {{else}}
+                            <a
+                                class='btn btn-primary'
+                                onclick='{{{enrollCourse data._id course._id}}}'
+                                href=''
+                            >Enroll</a>
+                        {{/if}}
                     {{/if}}
 
                 </div>

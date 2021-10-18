@@ -5,12 +5,12 @@ const router = require('./routes/router');
 const morgan = require('morgan');
 const hbs = require('express-handlebars');
 const path = require('path');
-// Mongoose Connection
+
 dataBaseConnection();
 
 // BodyPerser
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, '/views/')));
 app.use(express.json());
 morgan('dev');
 
@@ -54,8 +54,8 @@ app.engine(
                 return `/update-course/${aString}/${bString}`;
             },
             enrollCourse: function (userId, courseId) {
-                const mString = userId + ' , ' + '"' + courseId;
-                return `enrollCourse("${mString}")`;
+                const mString = userId + ' , ' + courseId;
+                return `enrollCourse(${mString})`;
             },
             ingredients: function (aString) {
                 return aString.reduce((word, index) => {

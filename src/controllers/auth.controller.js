@@ -6,9 +6,10 @@ class AuthController {
     async signUp(req, res, next) {
         try {
             const result = await authService.signUp(req.body, next);
-            res.status(200).json({
-                status: 'success',
-                data: result,
+            res.status(result.statusCode).json({
+                status: result.status,
+                user: result.user,
+                message: result.message,
             });
         } catch (err) {
             // next(new AppError(err.message, 500));
@@ -17,15 +18,15 @@ class AuthController {
 
     async login(req, res, next) {
         try {
-            const result = await authService.login(req.body, next);
-            console.log(result);
-            return res.status(result.statusCode || 200).json({
-                status: result.status || 'success',
-                message: result.message || 'User logged in.',
+            const result = await authService.login(req.body);
+            return res.status(result.statusCode).send({
+                status: result.status,
+                message: result.message,
                 user: result.user,
             });
         } catch (err) {
-            console.log('👀👀👀👀👀👀😍', err);
+            next(new AppError(err.message, 200));
+            // console.log('👀👀👀👀👀👀😍', err);
         }
     }
 }

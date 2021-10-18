@@ -12,6 +12,7 @@ class AuthService {
     }
 
     async signUp(body, next) {
+        const result = {};
         const { username, password, repeatPassword } = body;
         const user = { username, password, repeatPassword };
         const { error } = signupValidation(user);
@@ -19,69 +20,71 @@ class AuthService {
             const userExists = await this.Users.findOne({
                 username: username,
             });
+            console.log(userExists, 'inside signup');
             if (userExists) {
-                next(new AppError('Username unavailable, pick another.', 401));
+                result.message = 'This Username is taken!';
+                result.statusCode = 200;
+                result.status = 'Failed';
+                return result;
             }
             if (error) {
                 let message = error.details[0].message;
                 if (message.includes('repeatPassword')) {
-                    message = 'Confirm-Password must be the same as password';
+                    result.message =
+                        'Confirm-Password must be the same as password';
+                    result.statusCode = 200;
+                    result.status = 'Failed';
+                    return result;
                 }
-                next(new AppError(message, 400));
+                result.message = message;
+                result.statusCode = 200;
+                result.status = 'Failed';
+                return result;
             }
 
             const newUser = await this.Users.create({ ...user });
             await newUser.save();
             newUser.password = undefined;
-            newUser;
+            result.message = 'User signup successful';
+            result.statusCode = 200;
+            result.status = 'Success';
+            result.user = newUser;
+            return result;
         } catch (err) {
-            next(new AppError(err.message, 400));
+            next(new AppError(err.message, 200));
         }
     }
 
-    async login(body, next) {
+    async login(body) {
+        const { username, password } = body;
         const result = {};
-        const { error } = await loginValidation({ ...body });
-        if (error) {
-            // console.log('👀👀👀👀👀👀', error);
-            result.message = error.details[0].message;
-            result.statusCode = 400;
-            result.status = 'Failed';
-            return result;
-            // next(new AppError(error.details[0].message, 400));
-        }
         try {
             const user = await this.Users.findOne({
-                username: body.username,
-            }).lean();
+                username: username,
+            });
             if (!user) {
-                result.message = 'No such User';
-                result.statusCode = 400;
+                result.message = 'This User does not exist!';
+                result.statusCode = 200;
                 result.status = 'Failed';
-                // next(new AppError('Email or Password wrong', 400));
                 return result;
             }
-
             // TODO: fix bycrypt for user password confirmation
-            // const invalidPassword = await bcrypt.compare(
-            //     body.password,
-            //     user.password
-            // );
-
-            // console.log('sss', invalidPassword);
+            const invalidPassword = await bcrypt.compare(
+                password,
+                user.password
+            );
             // if (!invalidPassword) {
-            //     result.message = 'Username or Password wrong';
-            //     result.statusCode = 400;
+            //     result.message = 'Username or Password wrong!';
+            //     result.statusCode = 200;
             //     result.status = 'Failed';
-
             //     return result;
             // }
-            // // const token = await signToken(user._id);
+            result.message = 'Logged in Successfully';
+            result.statusCode = 200;
+            result.status = 'Success';
             result.user = user;
-            return user;
-        } catch (err) {
-            // next(new AppError(err.message, 400));
-        }
+            return result;
+        } catch (err) {}
     }
 
     async findUser(id) {
