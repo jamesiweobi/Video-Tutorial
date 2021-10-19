@@ -14,19 +14,18 @@ class CourseService {
             title: body.title,
             description: body.description,
             imageUrl: body.imageUrl,
-            // isPublic: body.isPublic,
+            isPublic: body.isPublic,
         };
         const { error } = courseValidator(newCourse);
-        newCourse.isPublic = body.isPublic;
         try {
-            console.log(error);
             if (!error) {
+                console.log(error, 'to be created course');
                 result.message = 'Course created successfully';
                 result.statusCode = 200;
                 result.status = 'Success';
                 const savedCourse = await this.Course.create({
                     ...newCourse,
-                }).lean();
+                });
                 console.log(savedCourse);
                 await savedCourse.save();
                 result.course = savedCourse;
@@ -34,13 +33,13 @@ class CourseService {
             }
 
             result.message = error.details[0].message;
-            result.statusCode = 400;
+            result.statusCode = 200;
             result.status = 'Failed';
             return result;
             // let message = error.details[0].message;
             // next(new AppError(message, 400));
         } catch (err) {
-            next(new AppError(err.message, 400));
+            next(new AppError(err.message, 200));
         }
     }
 

@@ -20,7 +20,6 @@ class ViewsController {
         const id = req.params.id;
         const user = await authService.findUser(id);
         const { doc } = user;
-        console.log(user);
         res.render('create-course', {
             layout: 'layout',
             username: user.username,

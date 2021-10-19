@@ -25,10 +25,11 @@ const signupValidation = (newUser) => {
 };
 
 const courseValidator = (course) => {
+    console.log('inside validator');
     const courseSchema = Joi.object({
         title: Joi.string().required().messages({
-            'username.base': `Title must be a string`,
-            'username.empty': `TItle cannot be empty`,
+            'title.base': `Title must be a string`,
+            'title.empty': `TItle cannot be empty`,
             'any.required': `Please enter a Course Title`,
             'string.title': 'Title must be a string',
         }),
@@ -42,6 +43,7 @@ const courseValidator = (course) => {
         imageUrl: Joi.string().required().messages({
             'any.message': 'ImageUrl cannot be empty and must be a valid Url',
         }),
+        isPublic: Joi.boolean(),
     });
     return courseSchema.validate(course);
 };
