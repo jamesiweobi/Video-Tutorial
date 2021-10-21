@@ -1,0 +1,51 @@
+[
+    {
+        "title": "Machine Learning",
+        "description": "Machine learning is the science of getting computers to act without being explicitly programmed.",
+        "imageUrl": "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://s3.amazonaws.com/coursera/topics/ml/large-icon.png?auto=format%2Ccompress&dpr=1&w=150&h=150&fit=fill&bg=FFF&q=25",
+        "isPublic": true,
+        "createdAt": "2021-09-09T17:54:54.611+00:00"
+    },
+    {
+        "title": "Learn Python Programming Masterclass",
+        "description": "This Python For Beginners Course Teaches You The Python Language Fast. Includes Python Online Training With Python 3",
+        "imageUrl": "https://miro.medium.com/max/1400/1*RJMxLdTHqVBSijKmOO5MAg.jpeg",
+        "isPublic": true,
+        "createdAt": "2021-09-19T17:54:54.611+00:00"
+    },
+    {
+        "title": "Amazon Web Services (AWS) - Master Amazon Cloud Platform",
+        "description": "Become an AWS Certified Developer! Learn all Amazon Web Services. Cloud Computing, AWS, EC2, S3, Elastic Beanstalk, etc",
+        "imageUrl": "https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2018/10/Amazon-Web-Services_logo835x396.png",
+        "isPublic": false,
+        "createdAt": "2021-08-19"
+    },
+    {
+        "title": "UX Design Process",
+        "description": "Build the essential skills you need to launch a career in UX Design. Start learning today! Learn how to solve real-world UX problems through hands-on labs",
+        "imageUrl": "https://www.ckdigitalacademy.com/wp-content/uploads/2019/07/UIUX-design-750x500.png",
+        "isPublic": false,
+        "createdAt": "2021-10-19"
+    },
+    {
+        "title": "Learn JAVA Programming - Beginner to Master | Udemy",
+        "description": "Become indispensable to any company with the hottest IT skills. Find the right instructor for you.",
+        "imageUrl": "https://technofaq.org/wp-content/uploads/2017/05/learning-java-programming-620x350.png.webp",
+        "isPublic": true,
+        "createdAt": "2021-08-19"
+    },
+    {
+        "title": "Angular",
+        "description": "Become indispensable to any company with the hottest FrontEnd JavaScript skills. Find the right instructor for you.",
+        "imageUrl": "https://colorlib.com/wp/wp-content/uploads/sites/2/angular-logo.png",
+        "isPublic": false,
+        "createdAt": "2021-08-19"
+    },
+    {
+        "title": "React",
+        "description": "Become indispensable to any company with the hottest FrontEnd JavaScript skills. Find the right instructor for you.",
+        "imageUrl": "http://blog.addthiscdn.com/wp-content/uploads/2014/11/addthis-react-flux-javascript-scaling.png",
+        "isPublic": true,
+        "createdAt": "2022-08-19"
+    }
+]

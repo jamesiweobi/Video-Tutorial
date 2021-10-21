@@ -1,79 +1,102 @@
-<div class='container'>
-    <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-        <a class='navbar-brand'>Video Tutorials</a>
+<link href='../css/style.css' rel='stylesheet' type='text/css' />
+<body>
+    <div class='container'>
+        <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+            <a class='navbar-brand'>Video Tutorials</a>
 
-        <ul class='navbar-nav ml-auto'>
+            <ul class='navbar-nav ml-auto'>
 
-            <li class='nav-item'>
-                <a class='nav-link' href='/'>Home </a>
-            </li>
+                <li class='nav-item'>
+                    <a class='nav-link' href='/'>Home </a>
+                </li>
 
-            <li class='nav-item'>
-                <a class='nav-link' href=''>Welcome, {{data.username}}</a>
-            </li>
+                <li class='nav-item'>
+                    <a class='nav-link' href=''>Welcome, {{user.username}}</a>
+                </li>
 
-            <li class='nav-item'>
-                <a class='nav-link' href={{logOutSrc data._id}}>Logout</a>
-            </li>
-        </ul>
-    </nav>
+                <li class='nav-item'>
+                    <a class='nav-link' href={{logOutSrc user.id}}>Logout</a>
+                </li>
+            </ul>
+        </nav>
 
-    <section class='notifications'>
-        <p class='notification-message'>Message...</p>
-    </section>
-
-    <main>
-        <form
-            class='text-center border border-light p-5'
-            action=''
-            method='POST'
-        >
-            <h1>Edit Course</h1>
-            <div class='form-group'>
-                <label for='title'>Course Title</label>
-                <input
-                    type='text'
-                    class='form-control'
-                    placeholder='Course name'
-                    value=''
-                    name='title'
-                />
+        <div id='notifications'>
+            <div
+                id='successBox'
+                class='alert successBox alert-success'
+                role='alert'
+            >
+                <p class='success-message'></p>
             </div>
-            <div class='form-group'>
-                <label for='description'>Course Description</label>
-                <textarea
-                    class='form-control'
-                    placeholder='Description'
-                    name='description'
-                ></textarea>
+            <div
+                id='loadingBox'
+                class='alert loadigBox alert-info'
+                role='alert'
+            ><p class='loading-message'></p></div>
+            <div id='errorBox' class='alert alertBox alert-danger' role='alert'>
+                <p class='error-message'></p>
             </div>
-            <div class='form-group'>
-                <label for='imageUrl'>Image url</label>
-                <input
-                    type='text'
-                    class='form-control'
-                    placeholder='Image Url'
-                    value=''
-                    name='imageUrl'
-                />
-            </div>
-            <div class='form-check'>
-                <input
-                    type='checkbox'
-                    class='form-check-input'
-                    id='check-box'
-                    name='isPublic'
-                />
-                <label class='form-check-label' for='check-box'>Public</label>
-            </div>
-            <button type='submit' class='btn btn-primary'>Submit</button>
-        </form>
-    </main>
-
-    <footer class='page-footer font-small'>
-        <div class='footer-copyright text-center py-3'>© 2019
-            <a href='#/'>Express Fundamentals</a>
         </div>
-    </footer>
 
-</div>
+        <main>
+            <form
+                class='text-center border border-light p-5'
+                action=''
+                method=''
+            >
+                <h1>Create Course</h1>
+                <div class='form-group'>
+                    <label for='title'>Course Title</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        placeholder='Course name'
+                        name='title'
+                        value={{course.title}}
+                    />
+                </div>
+                <div class='form-group'>
+                    <label for='description'>Course Description</label>
+                    <textarea
+                        class='form-control'
+                        placeholder='Description'
+                        name='description'
+                    >{{course.description}}</textarea>
+                </div>
+                <div class='form-group'>
+                    <label for='imageUrl'>Image url</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        placeholder='Image Url'
+                        name='imageUrl'
+                        value={{course.imageUrl}}
+                    />
+                </div>
+                <div class='form-check'>
+                    <input
+                        type='checkbox'
+                        class='form-check-input'
+                        id='check-box'
+                        name='isPublic'
+                    />
+                    <label
+                        class='form-check-label'
+                        for='check-box'
+                    >Public</label>
+                </div>
+                <button type='submit' class='btn btn-primary'>Submit</button>
+                <input type='hidden' id='userId' value={{user.id}} />
+                <input type='hidden' id='courseId' value={{course.id}} />
+            </form>
+        </main>
+
+        <footer class='page-footer font-small'>
+            <div class='footer-copyright text-center py-3'>© 2021
+                <a href='/'>Express Fundamentals</a>
+            </div>
+        </footer>
+
+    </div>
+</body>
+<script src='../logic/update-course.js' type='text/javascript'></script>

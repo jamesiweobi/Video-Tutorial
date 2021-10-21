@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const dataBaseConnection = require('./db/db.mongoDB');
 const router = require('./routes/router');
-const morgan = require('morgan');
 const hbs = require('express-handlebars');
 const path = require('path');
 
@@ -10,12 +9,10 @@ dataBaseConnection();
 
 // BodyPerser
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '/views/')));
 app.use(express.json());
-morgan('dev');
 
 // Views
-
+app.use(express.static(__dirname + '/views/static'));
 app.set('views', path.join(__dirname, 'views/partials'));
 app.set('view engine', 'hbs');
 app.engine(
@@ -24,12 +21,13 @@ app.engine(
         extname: 'hbs',
         defaultLayout: 'layout.hbs',
         layoutsDir: __dirname + '/views/layouts',
+        partialsDir: __dirname + '/views/partials',
         helpers: {
-            loadUrl: function (aString, bString) {
-                return `/course-details?userId=${aString}&course=${bString}`;
+            courseDetails: function (aString, bString) {
+                return `/course-details/${aString}/${bString}`;
             },
             homePage: function (aString) {
-                return `/course/${aString}`;
+                return `/${aString}`;
             },
             sharecourse: function (sString) {
                 let result = '/create-course/' + sString;

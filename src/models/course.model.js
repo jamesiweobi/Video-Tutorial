@@ -17,7 +17,7 @@ const courseSchema = new Schema({
     // TODO: Fixed the default on isPublic
     isPublic: {
         type: Boolean,
-        defualt: false,
+        default: false,
     },
     createdAt: {
         type: Date,

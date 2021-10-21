@@ -67,7 +67,7 @@ class CourseService {
         }
     }
 
-    async findAllCourse(id) {
+    async findAllCourse() {
         const result = {};
         const course = await this.Course.find({}).lean();
         if (course) {

@@ -9,6 +9,6 @@ router
     .put('/enroll/:id', courseController.enrollCourse);
 router
     .get('/:id', courseController.findCourse)
-    .patch('/:id', courseController.updateCourse);
+    .put('/:id', courseController.updateCourse);
 
 module.exports = router;
