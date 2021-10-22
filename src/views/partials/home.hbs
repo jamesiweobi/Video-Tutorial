@@ -37,7 +37,6 @@
                     <li class='nav-item'>
                         <a class='nav-link' href='/signup-user'>Register</a>
                     </li>
-
                 </ul>
 
             {{/if}}
@@ -66,15 +65,20 @@
             <section>
                 <a href={{sharecourse user._id}} class='btn btn-warning'>Create
                     Course</a>
-                <form class='search float-right'>
+                <form name='form' class='search float-right'>
                     <label>Search: </label>
-                    <input type='text' />
-                    <input type='submit' class='btn btn-info' value='Search' />
+                    <input type='text' name='searchText' />
+                    <input
+                        type='submit'
+                        name='submit'
+                        class='btn btn-info'
+                        value='Search'
+                    />
                 </form>
             </section>
             {{#if course}}
                 <div class='container mt-3'>
-                    <div class='row'>
+                    <div class='row' name='searchDiv'>
                         {{#each course}}
 
                             <div
@@ -110,6 +114,7 @@
             {{else}}
                 <h3 class='text-center'>No courses...</h3>
             {{/if}}
+            <input value={{user._id}} id='userId' name='userId' type='hidden' />
         </main>
 
         <footer class='page-footer font-small'>
@@ -120,4 +125,5 @@
 
     </div>
 </body>
-{{! </html> }}
+
+<script src='../logic/home.js'></script>

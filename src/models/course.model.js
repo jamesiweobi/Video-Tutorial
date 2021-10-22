@@ -14,7 +14,6 @@ const courseSchema = new Schema({
         type: String,
         required: true,
     },
-    // TODO: Fixed the default on isPublic
     isPublic: {
         type: Boolean,
         default: false,
@@ -23,18 +22,39 @@ const courseSchema = new Schema({
         type: Date,
         default: Date.now(),
     },
-    // enrolledUsers: [
-    //     {
-    //         type: mongoose.Schema.ObjectID,
-    //         ref: 'Users',
-    //     },
-    // ],
-    // createdBy: {
-    //     type: mongoose.Schema.ObjectID,
-    //     ref: 'Users',
-    // },
+    enrolledUsers: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Users',
+        },
+    ],
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+    },
+});
+
+courseSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'createdBy',
+        select: '_id',
+    }).populate({
+        path: 'enrolledUsers',
+        select: '_id',
+    });
+    next();
 });
 
 const Course = mongoose.model('Courses', courseSchema);
 
 module.exports = Course;
+
+// Post.updateOne(
+//     {
+//         _id: req.params.postid,
+//         likes: { $ne: { user: authorizedData.jwt_payload.patient._id } },
+//     },
+//     { $push: { likes: authorizedData.jwt_payload.patient._id } }
+// )
+//     .then((re) => res.json(re))
+//     .catch((err) => res.json('already liked'));
