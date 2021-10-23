@@ -13,7 +13,7 @@ const deleteCourse = async (id, userId) => {
 const enrollCourse = async (userId, courseId) => {
     try {
         await axios.put(`/api/v1/courses/enroll`, {
-            userid: userId,
+            userId: userId,
             courseId: courseId,
         });
         alertMessage(successBox, 'success-message', 'Enrolled');

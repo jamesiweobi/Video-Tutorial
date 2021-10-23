@@ -34,13 +34,19 @@ const courseSchema = new Schema({
     },
 });
 
+// ################
+
+// working on why the createdBy isn't populating
+
+// // ###############
+
 courseSchema.pre(/^find/, function (next) {
     this.populate({
         path: 'createdBy',
         select: '_id',
     }).populate({
         path: 'enrolledUsers',
-        select: '_id',
+        select: 'username',
     });
     next();
 });

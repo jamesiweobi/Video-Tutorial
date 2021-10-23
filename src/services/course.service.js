@@ -111,7 +111,7 @@ class CourseService {
             {
                 new: true,
             }
-        ).lean();
+        );
         result.message = 'Succesfully Updated the course';
         result.statusCode = 200;
         result.status = 'Success';
@@ -124,9 +124,22 @@ class CourseService {
         return deleted;
     }
 
-    async enrolledCourse(userId, courseId) {
-        // TODO: Fix the enrolled course function
-        // const enrolled = await
+    async enrolledCourse(courseId, userId) {
+        const result = {};
+        const course = await this.Course.findById(courseId);
+        course.enrolledUsers.push(userId);
+        const updatedCourse = await this.Course.findByIdAndUpdate(
+            { id: id },
+            { ...course },
+            {
+                new: true,
+            }
+        ).lean();
+        result.message = 'Succesfully enrolled for this course';
+        result.statusCode = 200;
+        result.status = 'Success';
+        result.course = updatedCourse;
+        return result;
     }
 }
 

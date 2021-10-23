@@ -90,7 +90,21 @@ class CourseController {
     async enrollCourse(req, res, next) {
         const courseId = req.body.courseId;
         const userId = req.body.userId;
-        const enrolled = await courseService.enrolledCourse(userId, courseId);
+        try {
+            const result = await courseService.enrolledCourse(courseId, userId);
+            return res.status(result.statusCode).json({
+                status: result.status,
+                message: result.message,
+                course: result.course,
+            });
+        } catch (err) {
+            return next(
+                new AppError(
+                    'Internal server issues, please try again later.',
+                    500
+                )
+            );
+        }
     }
 }
 module.exports = new CourseController();

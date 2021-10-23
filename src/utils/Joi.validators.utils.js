@@ -44,6 +44,9 @@ const courseValidator = (course) => {
             'any.message': 'ImageUrl cannot be empty and must be a valid Url',
         }),
         isPublic: Joi.boolean(),
+        createdBy: Joi.string().required().messages({
+            'any.message': 'Please include a who created the course.',
+        }),
     });
     return courseSchema.validate(course);
 };

@@ -7,6 +7,7 @@ const submit = document.querySelector('.btn');
 const successBox = document.getElementById('successBox');
 const loadingBox = document.getElementById('loadingBox');
 const errorBox = document.getElementById('errorBox');
+const id = document.getElementsByName('userId')[0];
 let timeout;
 
 submit.addEventListener('click', async (e) => {
@@ -18,6 +19,7 @@ submit.addEventListener('click', async (e) => {
         description: description.value,
         imageUrl: imageUrl.value,
         isPublic: isTrue,
+        createdBy: id.value,
     };
     try {
         const result = await axios.post('/api/v1/courses', formData);

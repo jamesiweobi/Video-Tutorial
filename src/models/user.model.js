@@ -12,22 +12,17 @@ const userSchema = new Schema({
     repeatPassword: {
         type: String,
     },
-    // enrolledCourses: [
-    //     {
-    //         type: mongoose.Schema.ObjectID,
-    //         ref: 'Courses',
-    //     },
-    // ],
 });
 
-userSchema.pre('save', async function (next) {
-    // Hash the password with cost of 12
-    let hashedPassword = await bcrypt.hash(this.password, 12);
-    this.password = hashedPassword;
-    // Delete repeatPassword field
-    this.repeatPassword = undefined;
-    next();
-});
+// userSchema.pre('save', async function (next) {
+//     // Hash the password with cost of 12
+//     const salt = await bcrypt.genSalt();
+//     let hashedPassword = await bcrypt.hash(this.password, salt);
+//     this.password = hashedPassword;
+//     // Delete repeatPassword field
+//     this.repeatPassword = undefined;
+//     next();
+// });
 
 const Users = mongoose.model('Users', userSchema);
 

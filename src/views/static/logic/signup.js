@@ -24,7 +24,7 @@ submit.addEventListener('click', async (e) => {
         if (data.status === 'Success') {
             clearTimeOut(timeout);
             timeout = alertMessage(successBox, 'success-message', data.message);
-            // window.location.replace(`/home`);
+            window.location.replace(`/${data.user._id}`);
         } else {
             clearTimeOut(timeout);
             timeout = alertMessage(errorBox, 'error-message', data.message);

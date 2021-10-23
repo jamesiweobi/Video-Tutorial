@@ -4,12 +4,14 @@ const dataBaseConnection = require('./db/db.mongoDB');
 const router = require('./routes/router');
 const hbs = require('express-handlebars');
 const path = require('path');
+const morgan = require('morgan');
 
 dataBaseConnection();
 
 // BodyPerser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(morgan('dev'));
 
 // Views
 app.use(express.static(__dirname + '/views/static'));

@@ -6,9 +6,9 @@ router
     .post('/', courseController.createCourse)
     .get('/', courseController.findAllCourse)
     .delete('/:id', courseController.deleteCourse)
-    .put('/enroll/:id', courseController.enrollCourse);
+    .put('/enroll', courseController.enrollCourse);
 router
-    .get('/:id', courseController.findCourse)
+    .get('/:userId', courseController.findCourse)
     .put('/:id', courseController.updateCourse);
 
 module.exports = router;
