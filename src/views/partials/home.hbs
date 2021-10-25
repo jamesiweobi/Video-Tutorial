@@ -194,8 +194,7 @@
         course.title.toLowerCase() }; }); const searchResult =
         mapResult.filter((course) => { if
         (course.title.includes(searchWord.toLowerCase().trim())) return course;
-        }); if (searchResult) { alertMessage(successBox, 'success-message',
-        'Search result found!'); const template = searchResult.map((course) => {
+        }); if (searchResult) { const template = searchResult.map((course) => {
         return `<div class='card-deck d-flex justify-content-center' > <div
         class='card mb-4'> <img class='card-img-top' src=${course.imageUrl}
         alt='Card image cap' width='400' /> <div class='card-body'> <h4
@@ -204,7 +203,8 @@
         course._id }' ><button type='button' class='btn btn-info'
         >Details</button></a> <small class='float-right'
         >${course.createAt}</small> </div> </div> </div>`; });
-        searchDiv.innerHTML = template.join(' '); } if (!searchResult) { const
+        searchDiv.innerHTML = template.join(' '); alertMessage(successBox,
+        'success-message', 'Search Result Below'); } if (!searchResult) { const
         template = allCourses.map((course) => { return `<div class='card-deck
         d-flex justify-content-center' > <div class='card mb-4'> <img
         class='card-img-top' src=${course.imageUrl} alt='Card image cap'

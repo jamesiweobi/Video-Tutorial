@@ -10,7 +10,6 @@ submit.addEventListener('click', async (e) => {
         username: username.value,
         password: password.value,
     };
-    console.log(formData);
     try {
         const result = await axios.post('/api/v1/users/login', formData);
         const { data } = result;

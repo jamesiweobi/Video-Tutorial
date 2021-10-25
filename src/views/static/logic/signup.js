@@ -15,16 +15,14 @@ submit.addEventListener('click', async (e) => {
         password: password.value,
         repeatPassword: repeatPassword.value,
     };
-    console.log(formData);
     try {
         const result = await axios.post('/api/v1/users/', formData);
-        console.log(result);
         const { data } = result;
         timeout = alertMessage(loadingBox, 'loading-message', 'Loading');
         if (data.status === 'Success') {
             clearTimeOut(timeout);
             timeout = alertMessage(successBox, 'success-message', data.message);
-            window.location.replace(`/${data.user._id}`);
+            window.location.replace(`/login-user`);
         } else {
             clearTimeOut(timeout);
             timeout = alertMessage(errorBox, 'error-message', data.message);

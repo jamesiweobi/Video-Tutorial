@@ -25,7 +25,6 @@ submit.addEventListener('click', async (e) => {
     });
 
     if (searchResult) {
-        alertMessage(successBox, 'success-message', 'Search result found!');
         const template = searchResult.map((course) => {
             return `<div
                                 class='card-deck d-flex justify-content-center'
@@ -59,6 +58,7 @@ submit.addEventListener('click', async (e) => {
                             </div>`;
         });
         searchDiv.innerHTML = template.join(' ');
+        alertMessage(successBox, 'success-message', 'Search Result Below');
     }
     if (!searchResult) {
         const template = allCourses.map((course) => {

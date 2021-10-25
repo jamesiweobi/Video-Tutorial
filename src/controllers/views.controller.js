@@ -56,7 +56,7 @@ class ViewsController {
 
     async signUp(req, res) {
         res.render('signUp', {
-            layout: 'layout',
+            // layout: 'layout',
         });
     }
 
