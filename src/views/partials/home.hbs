@@ -1,129 +1,242 @@
-<body>
-    <div class='container'>
-        <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+<html lang='en'>
 
-            <a class='navbar-brand'>Video Tutorials</a>
-            {{#if user}}
+    <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta http-equiv='X-UA-Compatible' content='ie=edge' />
+        <title>Express Retake Exam January 2021</title>
+        <link
+            rel='stylesheet'
+            href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
+            integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
+            crossorigin='anonymous'
+        />
+        {{! <link href='../css/style.css' rel='stylesheet' type='text/css' /> }}
+        <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 
-                <ul class='navbar-nav ml-auto'>
+    </head>
+    <style>
+        /* body { font-size: 40px; } */ .card { min-width: 18rem; max-width:
+        18rem; } .card-img-top { width: 100%; height: 15vw; object-fit: cover; }
+        .btn-group { margin-right: 20px; } .badge { margin-left: 10px; }
+        .enrolled-span { text-decoration: underline; background-color: green;
+        color: white; padding: 2%; border-radius: 4px; } .notifications {
+        background-color: rgba(240, 46, 46, 0.699); margin: 0 auto; text-align:
+        center; padding: 1%; margin-top: 2%; margin-bottom: 2%; border-radius:
+        6px; color: white; font-style: italic; text-decoration: underline;
+        box-shadow: 0 5px 10px #cccccc; } #successBox, #loadingBox, #errorBox {
+        text-align: center; } .alert-success { visibility: hidden; /*
+        text-align: center; */ } .alert-info { visibility: hidden; /*
+        text-align: center; */ } .alert-danger { visibility: hidden; /*
+        text-align: center; */ } .visible { visibility: visible !important; }
 
-                    <li class='nav-item'>
-                        <a class='nav-link' href={{homePage user._id}}>Home </a>
-                    </li>
+    </style>
+    <body>
+        <div class='container'>
+            <nav class='navbar navbar-expand-lg navbar-light bg-light'>
 
-                    <li class='nav-item'>
-                        <a class='nav-link' href=''>Welcome,
-                            {{user.username}}</a>
-                    </li>
+                <a class='navbar-brand'>Video Tutorials</a>
+                {{#if user}}
 
-                    <li class='nav-item'>
-                        <a
-                            class='nav-link'
-                            href={{logOutSrc user._id}}
-                        >Logout</a>
-                    </li>
-                </ul>
-            {{else}}
-                <ul class='navbar-nav ml-auto'>
+                    <ul class='navbar-nav ml-auto'>
 
-                    <li class='nav-item'>
-                        <a class='nav-link' href='/'>Home </a>
-                    </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href={{homePage user._id}}>Home
+                            </a>
+                        </li>
 
-                    <li class='nav-item'>
-                        <a class='nav-link' href='/login-user'>Login</a>
-                    </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href=''>Welcome,
+                                {{user.username}}</a>
+                        </li>
 
-                    <li class='nav-item'>
-                        <a class='nav-link' href='/signup-user'>Register</a>
-                    </li>
-                </ul>
+                        <li class='nav-item'>
+                            <a
+                                class='nav-link'
+                                href={{logOutSrc user._id}}
+                            >Logout</a>
+                        </li>
+                    </ul>
+                {{else}}
+                    <ul class='navbar-nav ml-auto'>
 
-            {{/if}}
-        </nav>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/'>Home </a>
+                        </li>
 
-        <div id='notifications'>
-            <div
-                id='successBox'
-                class='alert successBox alert-success'
-                role='alert'
-            >
-                <p class='success-message'></p>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/login-user'>Login</a>
+                        </li>
+
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/signup-user'>Register</a>
+                        </li>
+                    </ul>
+
+                {{/if}}
+            </nav>
+
+            <div id='notifications'>
+                <div
+                    id='successBox'
+                    class='alert successBox alert-success'
+                    role='alert'
+                >
+                    <p class='success-message'></p>
+                </div>
+                <div
+                    id='loadingBox'
+                    class='alert loadigBox alert-info'
+                    role='alert'
+                ><p class='loading-message'></p></div>
+                <div
+                    id='errorBox'
+                    class='alert alertBox alert-danger'
+                    role='alert'
+                >
+                    <p class='error-message'></p>
+                </div>
             </div>
-            <div
-                id='loadingBox'
-                class='alert loadigBox alert-info'
-                role='alert'
-            ><p class='loading-message'></p></div>
-            <div id='errorBox' class='alert alertBox alert-danger' role='alert'>
-                <p class='error-message'></p>
-            </div>
-        </div>
 
-        <main>
-            <h1 class='text-center'>Courses</h1>
-            <section>
-                <a href={{sharecourse user._id}} class='btn btn-warning'>Create
-                    Course</a>
-                <form name='form' class='search float-right'>
-                    <label>Search: </label>
-                    <input type='text' name='searchText' />
-                    <input
-                        type='submit'
-                        name='submit'
-                        class='btn btn-info'
-                        value='Search'
-                    />
-                </form>
-            </section>
-            {{#if course}}
-                <div class='container mt-3'>
-                    <div class='row' name='searchDiv'>
-                        {{#each course}}
+            <main>
+                <h1 class='text-center'>Courses</h1>
+                <section>
+                    <a
+                        href={{sharecourse user._id}}
+                        class='btn btn-warning'
+                    >Create Course</a>
+                    <form name='form' class='search float-right'>
+                        <label>Search: </label>
+                        <input type='text' name='searchText' />
+                        <input
+                            type='submit'
+                            name='submit'
+                            class='btn btn-info'
+                            value='Search'
+                        />
+                    </form>
+                </section>
+                {{#if course}}
+                    <div class='container mt-3'>
+                        <div class='row' name='searchDiv'>
+                            {{#each course}}
 
-                            <div
-                                class='card-deck d-flex justify-content-center'
-                            >
-                                <div class='card mb-4'>
-                                    <img
-                                        class='card-img-top'
-                                        src={{imageUrl}}
-                                        alt='Card image cap'
-                                        width='400'
-                                    />
-                                    <div class='card-body'>
-                                        <h4 class='card-title'>{{title}}</h4>
-                                    </div>
-                                    <div class='card-footer'>
-                                        <a
-                                            href={{courseDetails userId _id}}
-                                        ><button
-                                                type='button'
-                                                class='btn btn-info'
-                                            >Details</button></a>
-                                        <small
-                                            class='float-right'
-                                        >{{createdAt}}</small>
+                                <div
+                                    class='card-deck d-flex justify-content-center'
+                                >
+                                    <div class='card mb-4'>
+                                        <img
+                                            class='card-img-top'
+                                            src={{imageUrl}}
+                                            alt='Card image cap'
+                                            width='400'
+                                        />
+                                        <div class='card-body'>
+                                            <h4
+                                                class='card-title'
+                                            >{{title}}</h4>
+                                        </div>
+                                        <div class='card-footer'>
+                                            <a
+                                                href={{courseDetails
+                                                    userId
+                                                    _id
+                                                }}
+                                            ><button
+                                                    type='button'
+                                                    class='btn btn-info'
+                                                >Details</button></a>
+                                            <small
+                                                class='float-right'
+                                            >{{createdAt}}</small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {{/each}}
+                            {{/each}}
 
+                        </div>
                     </div>
+                {{else}}
+                    <h3 class='text-center'>No courses...</h3>
+                {{/if}}
+                <input
+                    value={{user._id}}
+                    id='userId'
+                    name='userId'
+                    type='hidden'
+                />
+            </main>
+
+            <footer class='page-footer font-small'>
+                <div class='footer-copyright text-center py-3'>© 2021
+                    <a href={{homePage user._id}}>Express Fundamentals</a>
                 </div>
-            {{else}}
-                <h3 class='text-center'>No courses...</h3>
-            {{/if}}
-            <input value={{user._id}} id='userId' name='userId' type='hidden' />
-        </main>
+            </footer>
 
-        <footer class='page-footer font-small'>
-            <div class='footer-copyright text-center py-3'>© 2021
-                <a href={{homePage user._id}}>Express Fundamentals</a>
-            </div>
-        </footer>
+        </div>
+    </body>
 
-    </div>
-</body>
+    {{! <script src='../logic/home.js'></script> }}
+    <script>
+        const form = document.getElementsByName('form')[0]; const searchText =
+        document.getElementsByName('searchText')[0]; const searchDiv =
+        document.getElementsByName('searchDiv')[0]; const submit =
+        document.getElementsByName('submit')[0]; const id =
+        document.getElementsByName('userId')[0]; const successBox =
+        document.getElementById('successBox'); const loadingBox =
+        document.getElementById('loadingBox'); const errorBox =
+        document.getElementById('errorBox'); submit.addEventListener('click',
+        async (e) => { e.preventDefault(); const { data } = await
+        axios.get('/api/v1/courses'); const allCourses = [...data.course]; const
+        courses = [...allCourses]; while (searchDiv.firstChild) {
+        searchDiv.firstChild.remove(); } const searchWord = searchText.value;
+        const mapResult = courses.map((course) => { return { ...course, title:
+        course.title.toLowerCase() }; }); const searchResult =
+        mapResult.filter((course) => { if
+        (course.title.includes(searchWord.toLowerCase().trim())) return course;
+        }); if (searchResult) { alertMessage(successBox, 'success-message',
+        'Search result found!'); const template = searchResult.map((course) => {
+        return `<div class='card-deck d-flex justify-content-center' > <div
+        class='card mb-4'> <img class='card-img-top' src=${course.imageUrl}
+        alt='Card image cap' width='400' /> <div class='card-body'> <h4
+        class='card-title'>${capitalizeFirstLetter( course.title )}</h4> </div>
+        <div class='card-footer'> <a href='/course-details/${id.value}/${
+        course._id }' ><button type='button' class='btn btn-info'
+        >Details</button></a> <small class='float-right'
+        >${course.createAt}</small> </div> </div> </div>`; });
+        searchDiv.innerHTML = template.join(' '); } if (!searchResult) { const
+        template = allCourses.map((course) => { return `<div class='card-deck
+        d-flex justify-content-center' > <div class='card mb-4'> <img
+        class='card-img-top' src=${course.imageUrl} alt='Card image cap'
+        width='400' /> <div class='card-body'> <h4
+        class='card-title'>${capitalizeFirstLetter( course.title )}</h4> </div>
+        <div class='card-footer'> <a href='/course-details/${id.value}/${
+        course._id }' ><button type='button' class='btn btn-info'
+        >Details</button></a> <small class='float-right'
+        >${course.createdAt}</small> </div> </div> </div>`; });
+        searchDiv.innerHTML = template.join(' '); } }); function
+        capitalizeFirstLetter(string) { const words = string.split(' '); return
+        words .map((word) => { return word[0].toUpperCase() + word.substring(1);
+        }) .join(' '); } searchText.addEventListener('change', async () => {
+        const { data } = await axios.get('/api/v1/courses'); const allCourses =
+        [...data.course]; console.log('empty'); if (!searchText.value) { const
+        template = allCourses.map((course) => { return `<div class='card-deck
+        d-flex justify-content-center' > <div class='card mb-4'> <img
+        class='card-img-top' src=${course.imageUrl} alt='Card image cap'
+        width='400' /> <div class='card-body'> <h4
+        class='card-title'>${capitalizeFirstLetter( course.title )}</h4> </div>
+        <div class='card-footer'> <a href='/course-details/${id.value}/${
+        course.id }' ><button type='button' class='btn btn-info'
+        >Details</button></a> <small class='float-right'
+        >${course.createAt}</small> </div> </div> </div>`; });
+        searchDiv.innerHTML = template.join(' '); } }); const alertMessage =
+        (element, messageClass, message) => {
+        element.classList.toggle('visible'); const innerMessage =
+        document.querySelector(`.${messageClass}`); innerMessage.innerHTML =
+        message; timeout = setTimeout(() => {
+        element.classList.toggle('visible'); }, 5000);
+        clearMessage(innerMessage.innerHTML); return timeout; };
 
-<script src='../logic/home.js'></script>
+    </script>
+
+</html>

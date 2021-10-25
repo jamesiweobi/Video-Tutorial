@@ -1,81 +1,147 @@
-<body>
-    <div class='container'>
-        <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-            <a class='navbar-brand'>Video Tutorials</a>
+<html lang='en'>
 
-            <ul class='navbar-nav ml-auto'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta http-equiv='X-UA-Compatible' content='ie=edge' />
+        <title>Express Retake Exam January 2021</title>
+        <link
+            rel='stylesheet'
+            href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
+            integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
+            crossorigin='anonymous'
+        />
+        {{! <link href='../css/style.css' rel='stylesheet' type='text/css' /> }}
+        <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 
-                <li class='nav-item'>
-                    <a class='nav-link' href='/'>Home </a>
-                </li>
+    </head>
+    <style>
+        /* body { font-size: 40px; } */ .card { min-width: 18rem; max-width:
+        18rem; } .card-img-top { width: 100%; height: 15vw; object-fit: cover; }
+        .btn-group { margin-right: 20px; } .badge { margin-left: 10px; }
+        .enrolled-span { text-decoration: underline; background-color: green;
+        color: white; padding: 2%; border-radius: 4px; } .notifications {
+        background-color: rgba(240, 46, 46, 0.699); margin: 0 auto; text-align:
+        center; padding: 1%; margin-top: 2%; margin-bottom: 2%; border-radius:
+        6px; color: white; font-style: italic; text-decoration: underline;
+        box-shadow: 0 5px 10px #cccccc; } #successBox, #loadingBox, #errorBox {
+        text-align: center; } .alert-success { visibility: hidden; /*
+        text-align: center; */ } .alert-info { visibility: hidden; /*
+        text-align: center; */ } .alert-danger { visibility: hidden; /*
+        text-align: center; */ } .visible { visibility: visible !important; }
 
-                <li class='nav-item'>
-                    <a class='nav-link' href='/login-user'>Login</a>
-                </li>
+    </style>
+    <body>
+        <div class='container'>
+            <nav class='navbar navbar-expand-lg navbar-light bg-light'>
+                <a class='navbar-brand'>Video Tutorials</a>
 
-                <li class='nav-item'>
-                    <a class='nav-link' href='/signup-user'>Register</a>
-                </li>
+                <ul class='navbar-nav ml-auto'>
 
-            </ul>
-        </nav>
+                    <li class='nav-item'>
+                        <a class='nav-link' href='/'>Home </a>
+                    </li>
 
-        <div id='notifications'>
-            <div
-                id='successBox'
-                class='alert successBox alert-success'
-                role='alert'
-            >
-                <p class='success-message'></p>
+                    <li class='nav-item'>
+                        <a class='nav-link' href='/login-user'>Login</a>
+                    </li>
+
+                    <li class='nav-item'>
+                        <a class='nav-link' href='/signup-user'>Register</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div id='notifications'>
+                <div
+                    id='successBox'
+                    class='alert successBox alert-success'
+                    role='alert'
+                >
+                    <p class='success-message'></p>
+                </div>
+                <div
+                    id='loadingBox'
+                    class='alert loadigBox alert-info'
+                    role='alert'
+                ><p class='loading-message'></p></div>
+                <div
+                    id='errorBox'
+                    class='alert alertBox alert-danger'
+                    role='alert'
+                >
+                    <p class='error-message'></p>
+                </div>
             </div>
-            <div
-                id='loadingBox'
-                class='alert loadigBox alert-info'
-                role='alert'
-            ><p class='loading-message'></p></div>
-            <div id='errorBox' class='alert alertBox alert-danger' role='alert'>
-                <p class='error-message'></p>
-            </div>
+
+            <main>
+                <form
+                    class='text-center border border-light p-5'
+                    action='/'
+                    method=''
+                    name='form-layout'
+                >
+                    <div class='form-group'>
+                        <label for='username'>Username</label>
+                        <input
+                            type='text'
+                            class='form-control'
+                            placeholder='Username'
+                            name='username'
+                            value=''
+                        />
+                    </div>
+                    <div class='form-group'>
+                        <label for='password'>Password</label>
+                        <input
+                            type='password'
+                            class='form-control'
+                            placeholder='Password'
+                            name='password'
+                            value=''
+                        />
+                    </div>
+
+                    <button type='submit' class='btn btn-primary'>Login</button>
+                </form>
+            </main>
+
+            <footer class='page-footer font-small'>
+                <div class='footer-copyright text-center py-3'>© 2021
+                    <a href='/'>Express Fundamentals</a>
+                </div>
+            </footer>
+
         </div>
+    </body>
+    {{! <script src='../logic/login.js'></script> }}
+    <script>
+        const form = document.getElementsByName('form-layout')[0]; const
+        username = document.getElementsByName('username')[0]; const password =
+        document.getElementsByName('password')[0]; const submit =
+        document.querySelector('.btn'); let timeout;
+        submit.addEventListener('click', async (e) => { e.preventDefault();
+        const formData = { username: username.value, password: password.value,
+        }; console.log(formData); try { const result = await
+        axios.post('/api/v1/users/login', formData); const { data } = result;
+        timeout = alertMessage(loadingBox, 'loading-message', 'Loading'); if
+        (data.status === 'Success') { clearTimeOut(timeout); timeout =
+        alertMessage(successBox, 'success-message', data.message);
+        window.location.replace(`/${data.user._id}`); } else {
+        clearTimeOut(timeout); timeout = alertMessage(errorBox, 'error-message',
+        data.message); } } catch (error) { clearTimeOut(timeout); alertMessage(
+        errorBox, 'error-message', 'Incorrect Username or Password!' ); } });
+        const alertMessage = (element, messageClass, message) => {
+        element.classList.toggle('visible'); const innerMessage =
+        document.querySelector(`.${messageClass}`); innerMessage.innerHTML =
+        message; timeout = setTimeout(() => {
+        element.classList.toggle('visible'); }, 5000);
+        clearMessage(innerMessage.innerHTML); return timeout; }; const
+        clearMessage = (element) => { element = ''; }; const clearTimeOut =
+        (time) => { clearTimeout(time); }; const fetchData = (username,
+        password) => { return { username: username, password: password, }; };
 
-        <main>
-            <form
-                class='text-center border border-light p-5'
-                action='/'
-                method=''
-                name='form-layout'
-            >
-                <div class='form-group'>
-                    <label for='username'>Username</label>
-                    <input
-                        type='text'
-                        class='form-control'
-                        placeholder='Username'
-                        name='username'
-                        value=''
-                    />
-                </div>
-                <div class='form-group'>
-                    <label for='password'>Password</label>
-                    <input
-                        type='password'
-                        class='form-control'
-                        placeholder='Password'
-                        name='password'
-                        value=''
-                    />
-                </div>
+    </script>
 
-                <button type='submit' class='btn btn-primary'>Login</button>
-            </form>
-        </main>
-
-        <footer class='page-footer font-small'>
-            <div class='footer-copyright text-center py-3'>© 2021
-                <a href='/'>Express Fundamentals</a>
-            </div>
-        </footer>
-
-    </div>
-</body>
-<script src='../logic/login.js'></script>
+</html>

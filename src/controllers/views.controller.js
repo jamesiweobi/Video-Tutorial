@@ -1,4 +1,3 @@
-const AppError = require('../utils/handle.errors');
 const authService = require('../services/auth.service');
 const courseService = require('../services/course.service');
 
@@ -84,13 +83,12 @@ class ViewsController {
     }
 
     async logOut(req, res) {
-        const id = req.params.id;
-
+        res.cookie('Token', '', {
+            httpOnly: true,
+            maxAge: 1000,
+        });
         res.redirect('/');
     }
 }
 
 module.exports = new ViewsController();
-
-// ##########
-// TEST THE ENROLL FEATURE NEXT AND USERNAME DISPLAY ON COURSE DETAILS PAGE

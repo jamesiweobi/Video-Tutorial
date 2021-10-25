@@ -7,22 +7,27 @@ const signToken = async (id) => {
 };
 
 const authToken = (req, res, next) => {
-    console.log(req.cookies, 'cookies');
     const token = req.cookies.Token;
     if (!req.cookies.Token) {
-        return res.status(401).send({
-            status: 'Unauthorized',
-            redirect: '/courses/login',
-            message: 'Please login to proceed',
+        return res.render('guest', {
+            layout: 'layout',
         });
+        // return res.status(401).send({
+        //     status: 'Unauthorized',
+        //     redirect: '/courses/login',
+        //     message: 'Please login to proceed',
+        // });
     }
     jwt.verify(token, process.env.TOKEN_KEY, (err, user) => {
         if (err) {
-            return res.status(401).send({
-                status: 'Unauthorized',
-                redirect: '/courses/login',
-                message: 'Exipred Token, please login to proceed',
+            return res.render('guest', {
+                layout: 'guest',
             });
+            // return res.status(401).send({
+            //     status: 'Unauthorized',
+            //     redirect: '/courses/login',
+            //     message: 'Exipred Token, please login to proceed',
+            // });
         }
     });
     next();

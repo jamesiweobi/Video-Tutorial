@@ -11,7 +11,7 @@
             integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
             crossorigin='anonymous'
         />
-        {{! <link href='../css/style.css' rel='stylesheet' type='text/css' /> }}
+        {{! <link href='./css/style.css' rel='stylesheet' type='text/css' /> }}
         <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 
     </head>
@@ -39,7 +39,7 @@
                 <ul class='navbar-nav ml-auto'>
 
                     <li class='nav-item'>
-                        <a class='nav-link' href='/'>Home </a>
+                        <a class='nav-link' href={{homePage data_id}}>Home </a>
                     </li>
 
                     <li class='nav-item'>
@@ -140,7 +140,7 @@
 
         </div>
     </body>
-    <script src='./logic/course-details.js'></script>
+    {{! <script src='./logic/course-details.js'></script> }}
     <script>
         const successBox = document.getElementById('successBox'); const
         loadingBox = document.getElementById('loadingBox'); const errorBox =
