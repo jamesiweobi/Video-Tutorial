@@ -54,6 +54,7 @@ class ViewsController {
             layout: 'layout',
         });
     }
+
     async signUp(req, res) {
         res.render('signUp', {
             layout: 'layout',

@@ -5,6 +5,7 @@ const {
     loginValidation,
 } = require('../utils/Joi.validators.utils');
 const bcrypt = require('bcryptjs');
+const { signToken } = require('../utils/token.utils');
 
 class AuthService {
     constructor() {
@@ -75,13 +76,14 @@ class AuthService {
                 password,
                 user.password
             );
-            console.log(invalidPassword);
             if (!invalidPassword) {
                 result.message = 'Username or Password wrong!';
                 result.statusCode = 200;
                 result.status = 'Failed';
                 return result;
             }
+            const token = await signToken(user._id);
+            user.token = token;
             result.message = 'Logged in Successfully';
             result.statusCode = 200;
             result.status = 'Success';
@@ -91,7 +93,6 @@ class AuthService {
     }
 
     async findUser(id) {
-        console.log(id);
         const user = await this.Users.findOne({
             _id: id,
         }).lean();

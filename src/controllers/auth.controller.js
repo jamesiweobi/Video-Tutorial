@@ -19,6 +19,9 @@ class AuthController {
     async login(req, res, next) {
         try {
             const result = await authService.login(req.body);
+            if (result.user) {
+                res.cookie('Token', result.user.token, { httpOnly: true });
+            }
             return res.status(result.statusCode).send({
                 status: result.status,
                 message: result.message,
