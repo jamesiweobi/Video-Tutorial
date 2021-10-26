@@ -6,7 +6,7 @@
         "isPublic": true,
         "createdAt": "2021-09-09T17:54:54.611+00:00",
         "enrolledUsers": ["6161fa75c19233019c9c53c8"],
-        "createdBy": "6161fa75c19233019c9c53c8"
+        "createdBy": "617731594cad9149a0ddc590"
     },
     {
         "title": "Learn Python Programming Masterclass",
@@ -15,7 +15,7 @@
         "isPublic": true,
         "createdAt": "2021-09-19T17:54:54.611+00:00",
         "enrolledUsers": ["6161fa75c19233019c9c53c8"],
-        "createdBy": "6161fa75c19233019c9c53c8"
+        "createdBy": "617731594cad9149a0ddc590"
     },
     {
         "title": "Amazon Web Services (AWS) - Master Amazon Cloud Platform",
@@ -24,7 +24,7 @@
         "isPublic": false,
         "createdAt": "2021-08-19",
         "enrolledUsers": ["6161fa75c19233019c9c53c8"],
-        "createdBy": "6161fa75c19233019c9c53c8"
+        "createdBy": "617731594cad9149a0ddc590"
     },
     {
         "title": "UX Design Process",
@@ -33,7 +33,7 @@
         "isPublic": false,
         "createdAt": "2021-10-19",
         "enrolledUsers": ["6161fa75c19233019c9c53c8"],
-        "createdBy": "6161fa75c19233019c9c53c8"
+        "createdBy": "617731594cad9149a0ddc590"
     },
     {
         "title": "Learn JAVA Programming - Beginner to Master | Udemy",
@@ -41,7 +41,8 @@
         "imageUrl": "https://technofaq.org/wp-content/uploads/2017/05/learning-java-programming-620x350.png.webp",
         "isPublic": true,
         "createdAt": "2021-08-19",
-        "createdBy": "6161fa75c19233019c9c53c8"
+        "createdBy": "617731594cad9149a0ddc590",
+        "enrolledUsers": ["6161fa75c19233019c9c53c8"]
     },
     {
         "title": "Angular",
@@ -49,7 +50,8 @@
         "imageUrl": "https://colorlib.com/wp/wp-content/uploads/sites/2/angular-logo.png",
         "isPublic": false,
         "createdAt": "2021-08-19",
-        "createdBy": "6161fa75c19233019c9c53c8"
+        "createdBy": "617731594cad9149a0ddc590",
+        "enrolledUsers": ["6161fa75c19233019c9c53c8"]
     },
     {
         "title": "React",
@@ -57,6 +59,7 @@
         "imageUrl": "http://blog.addthiscdn.com/wp-content/uploads/2014/11/addthis-react-flux-javascript-scaling.png",
         "isPublic": true,
         "createdAt": "2022-08-19",
-        "enrolledUsers": ["6161fa75c19233019c9c53c8"]
+        "enrolledUsers": ["6161fa75c19233019c9c53c8"],
+        "createdBy": "617731594cad9149a0ddc590"
     }
 ]

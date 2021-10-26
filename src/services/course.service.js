@@ -126,10 +126,11 @@ class CourseService {
 
     async enrolledCourse(courseId, userId) {
         const result = {};
-        const course = await this.Course.findById(courseId);
+        const course = await this.Course.findById(courseId).lean();
         course.enrolledUsers.push(userId);
+        console.log(course);
         const updatedCourse = await this.Course.findByIdAndUpdate(
-            { id: id },
+            { _id: course._id },
             { ...course },
             {
                 new: true,

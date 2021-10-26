@@ -58,7 +58,6 @@ submit.addEventListener('click', async (e) => {
                             </div>`;
         });
         searchDiv.innerHTML = template.join(' ');
-        alertMessage(successBox, 'success-message', 'Search Result Below');
     }
     if (!searchResult) {
         const template = allCourses.map((course) => {
@@ -109,7 +108,6 @@ function capitalizeFirstLetter(string) {
 searchText.addEventListener('change', async () => {
     const { data } = await axios.get('/api/v1/courses');
     const allCourses = [...data.course];
-    console.log('empty');
     if (!searchText.value) {
         const template = allCourses.map((course) => {
             return `<div
@@ -146,15 +144,3 @@ searchText.addEventListener('change', async () => {
         searchDiv.innerHTML = template.join(' ');
     }
 });
-
-const alertMessage = (element, messageClass, message) => {
-    element.classList.toggle('visible');
-    const innerMessage = document.querySelector(`.${messageClass}`);
-
-    innerMessage.innerHTML = message;
-    timeout = setTimeout(() => {
-        element.classList.toggle('visible');
-    }, 5000);
-    clearMessage(innerMessage.innerHTML);
-    return timeout;
-};

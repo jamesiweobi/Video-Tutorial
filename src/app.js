@@ -11,6 +11,8 @@ dataBaseConnection();
 // BodyPerser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Cookie-parser
 app.use(cookieParser());
 
 // Views
@@ -56,8 +58,7 @@ app.engine(
                 return `/update-course/${aString}/${bString}`;
             },
             enrollCourse: function (userId, courseId) {
-                const mString = userId + ' , ' + courseId;
-                return `enrollCourse(${mString})`;
+                return `'enrollCourse("${userId}", "${courseId}")'`;
             },
             ingredients: function (aString) {
                 return aString.reduce((word, index) => {
@@ -68,13 +69,7 @@ app.engine(
     })
 );
 
-/*
-User route = '/api/v1/users'
-Courses route = '/api/v1/courses'
-Views route = '/'
-*/
 app.use('/', router);
-// app.use('/api/v1/users');
 
 // Global Error Handling
 app.use((err, req, res, next) => {

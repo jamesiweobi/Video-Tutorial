@@ -23,7 +23,6 @@ class AuthService {
             const userExists = await this.Users.findOne({
                 username: username,
             });
-            console.log(userExists, 'inside signup');
             if (userExists) {
                 result.message = 'This Username is taken!';
                 result.statusCode = 200;

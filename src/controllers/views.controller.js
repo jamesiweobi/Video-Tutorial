@@ -10,17 +10,15 @@ class ViewsController {
         const user = await authService.findUser(id);
         const courseRes = await courseService.findCourse(courseId);
         const { course } = courseRes;
-        let isEnrolled = course?.enrolledUsers.some((item) => {
+        let isEnrolled = course.enrolledUsers.some((item) => {
             return item.username === user.username;
         });
-        console.log(id, 'd');
+        console.log(course);
         let creator = false;
-        if (id != course?.createdBy._id) {
+        if (id === course.createdBy.id) {
             creator = true;
-            console.log(creator, 'the creator');
         }
         res.render('course-details', {
-            // layout: 'layout',
             data: user,
             course: courseRes.course,
             creator: creator,

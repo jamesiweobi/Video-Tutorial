@@ -98,12 +98,7 @@ class CourseController {
                 course: result.course,
             });
         } catch (err) {
-            return next(
-                new AppError(
-                    'Internal server issues, please try again later.',
-                    500
-                )
-            );
+            return next(new AppError(err.message, 500));
         }
     }
 }
